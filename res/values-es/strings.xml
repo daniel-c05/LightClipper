@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string name="app_name">Light Clipper</string>
+    <string name="hello_world">Hola Mundo</string>
+    <string name="menu_settings">Configuracion</string>
+    <string name="button_get_last_clip">Obtener Ultimo clip</string>
+    <string name="button_clear_clips">Borrar Clips</string>
+
+</resources>
