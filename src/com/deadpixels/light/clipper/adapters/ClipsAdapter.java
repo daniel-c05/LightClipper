@@ -3,6 +3,7 @@ package com.deadpixels.light.clipper.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -82,6 +83,8 @@ public class ClipsAdapter extends BaseAdapter {
 		}
 		
 		mHolder.content.setText(mClips.get(position));
+		Linkify.addLinks(mHolder.content, Linkify.WEB_URLS);
+		
 		mHolder.button.setOnClickListener(new OnClickListener() {
 			
 			@Override
