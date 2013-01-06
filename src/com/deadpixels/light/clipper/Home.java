@@ -15,9 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,7 +28,6 @@ public class Home extends Activity {
 	public static final String FILE_CLIPS = "clips.txt";
 	public static final int MAX_CLIP_ITEMS = 10;
 
-	private Button buttonGetLastClip, buttonClearClips;
 	private ListView clipList;
 
 	private ArrayList<String> recentClips;
@@ -66,9 +63,7 @@ public class Home extends Activity {
 		                mode.finish();
 		                return true;
 		            case R.id.menu_merge:
-		            	mergeAndAddToClip();
-		            	mode.finish();
-		            	return true;		         
+		            	return false;		         
 		            case R.id.menu_star:
 		            	return false;		         
 		            default:
@@ -170,16 +165,11 @@ public class Home extends Activity {
 		super.onStop();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_home, menu);
-		return true;
-	}
-
 	@SuppressLint("NewApi")
 	private void initViews () {
 
 		clipList = (ListView) findViewById(R.id.home_clip_list);
+		/* Not adding Context Menu for now, no use for it. 
 		if (isOldAPI) {
 			registerForContextMenu(clipList);
 		}
@@ -187,48 +177,9 @@ public class Home extends Activity {
 			clipList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 			clipList.setMultiChoiceModeListener(modeListener);			
 		}
+		*/
 		mAdapter = new ClipsAdapter(this, recentClips, isOldAPI);				
-		clipList.setAdapter(mAdapter);
-
-
-		buttonGetLastClip = (Button) findViewById(R.id.button_get_last_clip);
-		buttonGetLastClip.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				getLastItemFromClipboard(isOldAPI, true);
-			}
-		});
-
-		buttonClearClips = (Button) findViewById(R.id.button_clear_clips);
-		buttonClearClips.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				clearClips();
-			}
-		});
-	}
-
-	public void clearClips() {
-		for (String clip : recentClips) {
-			mAdapter.removeItem(clip);
-		}
-		mAdapter.notifyDataSetChanged();
-		ClipHelper.clearAll(this);
-	}
-	
-	protected void mergeAndAddToClip() {
-		String mergedClip = ClipHelper.EMPTY_STRING;
-    	for (int i = 0; i < itemsChecked.size(); i++) {
-    		if (mergedClip == ClipHelper.EMPTY_STRING) {
-				mergedClip = itemsChecked.get(i);
-			}
-    		else {
-    			mergedClip = mergedClip + " " + itemsChecked.get(i);
-    		}    		
-		}
-    	ClipHelper.addItemToClipboard(getApplicationContext(), "label", mergedClip, isOldAPI);
+		clipList.setAdapter(mAdapter);		
 	}
 
 	public void getLastItemFromClipboard (boolean oldAPI, boolean toast) {

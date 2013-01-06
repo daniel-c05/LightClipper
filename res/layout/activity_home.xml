@@ -3,33 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home" >
-    
-    <Button
-        android:id="@+id/button_get_last_clip"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/button_get_last_clip" />
-    
-     <Button
-         android:id="@+id/button_clear_clips"
-         style="?android:attr/buttonStyleSmall"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentTop="true"
-         android:layout_toRightOf="@+id/button_get_last_clip"
-         android:text="@string/button_clear_clips" />
 
     <ListView
         android:id="@+id/home_clip_list"
-        android:listSelector="@drawable/holo_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_get_last_clip"
-        >
-    </ListView>   
+        android:listSelector="@drawable/holo_selector" >
+    </ListView>
 
 </RelativeLayout>

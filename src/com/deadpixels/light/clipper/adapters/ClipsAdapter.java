@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deadpixels.light.clipper.R;
 import com.deadpixels.light.clipper.utils.ClipHelper;
@@ -91,6 +92,7 @@ public class ClipsAdapter extends BaseAdapter {
 			public void onClick(View v) {				
 				String value = mClips.get(finalPosition);
 				ClipHelper.addItemToClipboard(mContext, "label", value, isOldApi);
+				Toast.makeText(mContext, "Text copied to clipboard", Toast.LENGTH_SHORT).show();
 				mClips.remove(value);
 				mClips.add(value);	
 				notifyDataSetChanged();
