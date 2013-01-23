@@ -1,3 +1,18 @@
+/*******************************************************************************
+ * Copyright 2007 The Android Open Source Project
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.deadpixels.light.clipper;
 
 import java.util.ArrayList;
@@ -124,8 +139,6 @@ public class Home extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Log.v(TAG, "Calling onCreate");
-
 		setContentView(R.layout.activity_home);
 
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
@@ -138,7 +151,7 @@ public class Home extends Activity {
 			String action = getIntent().getAction();
 			String data = "";
 			if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-				data = getIntent().getStringExtra(Intent.EXTRA_TEXT);
+				data = getIntent().getCharSequenceExtra(Intent.EXTRA_TEXT).toString();
 				ClipHelper.addItemToClipboard(this, action, data, isOldAPI);
 				Toast.makeText(this, "Data copied to clipboard", Toast.LENGTH_SHORT).show();
 				this.finish();
