@@ -26,19 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/clip_list_attach"
         android:layout_margin="4dp"
-        android:text="Medium Text"
+        android:autoLink="web"
+        android:linksClickable="false"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageView
-        android:id="@+id/clip_list_attach"
-        android:clickable="true"
-        android:layout_margin="4dp"
-        style="@style/ActionButtons"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/button_attach" />
 
 </RelativeLayout>
