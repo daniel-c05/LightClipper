@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- General Settings -->
+    <PreferenceCategory 
+        android:title="@string/pref_title_general"
+        android:key="pref_key_general_settings">
+        <CheckBoxPreference
+            android:key="pref_key_current_theme"
+            android:title="@string/pref_title_current_theme"
+            android:summary="@string/pref_summary_current_theme"
+            android:defaultValue="false"/>    
+		<CheckBoxPreference
+            android:key="pref_key_make_links_clickable"
+            android:summary="@string/pref_summary_make_links_clickable"
+            android:title="@string/pref_title_make_links_clickable"
+            android:defaultValue="false"/>                 
+	</PreferenceCategory>
+</PreferenceScreen>

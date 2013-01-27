@@ -18,28 +18,32 @@ package com.deadpixels.light.clipper.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.deadpixels.light.clipper.Home;
 import com.deadpixels.light.clipper.R;
 
 public class ClipsAdapter extends BaseAdapter {
 	
 	private LayoutInflater mInflater;
 	private ArrayList<String> mClips;	
+	private boolean areLinksClickable;
 	
-	public ClipsAdapter (Context context, ArrayList<String> clips, boolean oldAPI) {
+	public ClipsAdapter (Context context, ArrayList<String> clips, boolean clickable) {
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		areLinksClickable = clickable;
+		Log.v(Home.TAG, "Links are clickable? : " + areLinksClickable);
 		if (clips != null) {
 			mClips = clips;
 		}
 		else {
 			mClips = new ArrayList<String>();
-		}
-		
+		}		
 	}
 
 	@Override
@@ -84,6 +88,7 @@ public class ClipsAdapter extends BaseAdapter {
 			root = mInflater.inflate(R.layout.clip_list_item, null);
 			mHolder = new ViewHolder();
 			mHolder.content = (TextView) root.findViewById(R.id.clip_list_text);
+			mHolder.content.setLinksClickable(areLinksClickable);
 			root.setTag(mHolder);
 		}
 		

@@ -19,11 +19,14 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,11 +42,13 @@ public class Home extends Activity {
 	public static final String TAG = "Light Clipper";
 
 	private ListView clipList;
-
-	private ArrayList<String> recentClips;
 	private ClipsAdapter mAdapter;
-	public boolean isOldAPI = true;
-	boolean inActionMode = false;	
+	private ArrayList<String> recentClips;
+	private boolean isOldAPI = true;
+	private SharedPreferences mPreferences;
+	private boolean linksClickable; 
+	public static boolean darkThemeEnabled;
+		
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
@@ -73,12 +78,13 @@ public class Home extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.activity_home);
+		updatePerfDependentValues();
 
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
 			isOldAPI = false;
 		}
+		
+		setContentView(R.layout.activity_home);
 		
 		Intent intent = getIntent();
 
@@ -96,8 +102,39 @@ public class Home extends Activity {
 		recentClips = new ArrayList<String>();		
 		recentClips = ClipHelper.getSavedClips(this);		
 
-		initViews();			
+		initViews();
+	}
+	
+	private void updatePerfDependentValues() {
+		mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		linksClickable = mPreferences.getBoolean(Settings.KEY_PREF_MAKE_LINKS_CLICKABLE, false);
+		darkThemeEnabled = mPreferences.getBoolean(Settings.KEY_PREF_CUR_THEME, false);
 
+		if (darkThemeEnabled) {
+			Log.v(TAG, "Attempting to set dark theme");
+			setTheme(R.style.DarkTheme);
+		}
+		else if (!darkThemeEnabled) {
+			setTheme(R.style.LightTheme);
+		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_home, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_settings:
+			Intent settingsIntent = new Intent(Home.this, Settings.class);
+			startActivity(settingsIntent);
+			return true;
+		default:
+			return false;
+		}
 	}
 	
 	@Override
@@ -116,7 +153,7 @@ public class Home extends Activity {
 	private void initViews () {
 		clipList = (ListView) findViewById(R.id.home_clip_list); 
 		registerForContextMenu(clipList);		
-		mAdapter = new ClipsAdapter(this, recentClips, isOldAPI);				
+		mAdapter = new ClipsAdapter(this, recentClips, linksClickable);				
 		clipList.setAdapter(mAdapter);		
 	}
 
@@ -132,5 +169,5 @@ public class Home extends Activity {
 			Toast.makeText(this,"Text: " + lastClip, Toast.LENGTH_LONG).show();
 		}
 	}
-
+	
 }
