@@ -37,14 +37,6 @@ public class Settings extends PreferenceActivity {
 		    protected void onCreate(Bundle savedInstanceState) {
 		        super.onCreate(savedInstanceState);
 		        
-		        if (Home.darkThemeEnabled) {
-		        	getListView().setBackgroundColor(getResources().getColor(R.color.black));
-					setTheme(R.style.DarkTheme);
-				}
-		        else {
-		        	setTheme(R.style.LightTheme);
-		        }
-		        
 		        addPreferencesFromResource(R.xml.preferences);   
 		        
 		        findPreference(KEY_PREF_CUR_THEME).setOnPreferenceChangeListener(prefChangeListener);
