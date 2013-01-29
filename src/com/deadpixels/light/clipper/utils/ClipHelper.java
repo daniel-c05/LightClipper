@@ -46,7 +46,7 @@ public class ClipHelper {
 	 * @param context The context, required to call {@code openFileOutput}
 	 * @param recentClips The actual list of String items we want to write to the file. 
 	 */
-	public static void saveClips(Context context, ArrayList<String> recentClips) {
+	public static void saveClips(final Context context, final ArrayList<String> recentClips) {
 		
 		try {
 			FileOutputStream out = context.openFileOutput(FILE_CLIPS, Context.MODE_PRIVATE);
@@ -67,7 +67,7 @@ public class ClipHelper {
 	 * @param context The context, required to call {@code openFileInput}
 	 * @return A list of the clips that were saved via {@link #saveClips(Context, ArrayList)}
 	 */
-	public static ArrayList<String> getSavedClips(Context context) {
+	public static ArrayList<String> getSavedClips(final Context context) {
 		
 		ArrayList<String> recentClips = new ArrayList<String>();
 		
@@ -95,7 +95,7 @@ public class ClipHelper {
 	 * @param value	The actual value to store on the clipboard via {@link ClipHelper#addItemToClipboard(Context, String, String)}
 	 * @param oldAPI Whether or not we are running on pre-HoneyComb API.
 	 */
-	public static void addItemToClipboard(Context context, String label, String value, boolean oldAPI) {
+	public static void addItemToClipboard(final Context context, final String label, final String value, final boolean oldAPI) {
 		if (oldAPI) {
 			addTextToClipboard(context, value);
 		}
@@ -111,7 +111,7 @@ public class ClipHelper {
 	 * @param value The value to store on the clipboard. 
 	 */
 	@SuppressLint("NewApi")
-	private static void addItemToClipboard (Context context, String label, String value) {
+	private static void addItemToClipboard (final Context context, final String label, final String value) {
 		ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		ClipData.Item item = new Item(value);
 		ClipDescription description = new ClipDescription(label, new String [] {ClipDescription.MIMETYPE_TEXT_PLAIN});
@@ -125,7 +125,7 @@ public class ClipHelper {
 	 * @param value The value to store on the clipboard. 
 	 */
 	@SuppressWarnings("deprecation")
-	private static void addTextToClipboard (Context context, String value) {
+	private static void addTextToClipboard (final Context context, final String value) {
 		android.text.ClipboardManager manager = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		manager.setText(value);			
 	}
@@ -136,7 +136,7 @@ public class ClipHelper {
 	 * @return Returns the latest item added to the clipboard by the user, as long as the {@code MimeType} is {@code MIMETYPE_TEXT_PLAIN}
 	 */
 	@SuppressLint("NewApi")
-	public static String getItemFromCliboard (Context context) {
+	public static String getItemFromCliboard (final Context context) {
 		ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		final ClipData data = manager.getPrimaryClip();
 		
@@ -165,7 +165,7 @@ public class ClipHelper {
 	 * @return Returns the latest text copied to the clipboard by the user
 	 */
 	@SuppressWarnings("deprecation")
-	private static String getTextFromClipboard(Context context) {
+	private static String getTextFromClipboard(final Context context) {
 		android.text.ClipboardManager manager = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		String text = (String) manager.getText();	//Yep, that much simpler. 
 		if (text == null) {
@@ -180,7 +180,7 @@ public class ClipHelper {
 	 * @param oldAPI Set to true when running API level lower than Honeycomb
 	 * @return The last text copied to the clipboard by the user. 
 	 */
-	public static String getLastClip (Context context, boolean oldAPI) {		
+	public static String getLastClip (final Context context, boolean oldAPI) {		
 		
 		final String clip;
 		

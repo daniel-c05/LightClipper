@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.deadpixels.light.clipper;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -24,6 +23,7 @@ import android.util.Log;
 
 /**
  * We are using a Preference Activity as a PreferenceFragment required high API levels. 
+ * Note we do not call {@link #setTheme(int)} here since by default most settings in android are black themed. 
  * @author SkullKandy
  *
  */
@@ -45,8 +45,7 @@ public class Settings extends PreferenceActivity {
 		
 		private static Preference.OnPreferenceChangeListener prefChangeListener = new Preference.OnPreferenceChangeListener() {
 			@Override
-			public boolean onPreferenceChange(Preference preference, Object value) {
-				//final Context context = preference.getContext();
+			public boolean onPreferenceChange(Preference preference, Object value) {				
 				String stringValue = value.toString();
 				String prefName = preference.getTitle().toString();
 				Log.v(Home.TAG, "Preference changed");
@@ -56,9 +55,4 @@ public class Settings extends PreferenceActivity {
 				return true;
 			}
 		};
-		
-		@Override
-		protected void onApplyThemeResource(Resources.Theme theme, int resid, boolean first) {
-		    theme.applyStyle(resid, true);
-		}
 }

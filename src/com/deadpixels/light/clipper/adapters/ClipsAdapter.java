@@ -99,7 +99,7 @@ public class ClipsAdapter extends BaseAdapter {
 		mHolder.content.setText(mClips.get(position));
 		
 		return root;
-	}
+	}	
 	
 	private class ViewHolder {
 		TextView content;

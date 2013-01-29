@@ -48,31 +48,31 @@ public class Home extends Activity {
 	private SharedPreferences mPreferences;
 	private boolean linksClickable; 
 	public static boolean darkThemeEnabled;
-		
-	
+
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
-	                                ContextMenuInfo menuInfo) {
-	    super.onCreateContextMenu(menu, v, menuInfo);
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.cliplist_context_menu, menu);
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.cliplist_context_menu, menu);
 	}	
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-	    AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-	    switch (item.getItemId()) {
-	        case R.id.menu_add_to_board:
-	        	String value = mAdapter.getItem(info.position);
-				ClipHelper.addItemToClipboard(Home.this, "label", value, isOldAPI);
-				Toast.makeText(Home.this, "Text copied to clipboard", Toast.LENGTH_SHORT).show();
-	            return true;
-	        case R.id.menu_delete_from_board:
-	        	mAdapter.removeItem(info.position);
-	            return true;
-	        default:
-	            return super.onContextItemSelected(item);
-	    }
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		switch (item.getItemId()) {
+		case R.id.menu_add_to_board:
+			String value = mAdapter.getItem(info.position);
+			ClipHelper.addItemToClipboard(Home.this, "label", value, isOldAPI);
+			Toast.makeText(Home.this, "Text copied to clipboard", Toast.LENGTH_SHORT).show();
+			return true;
+		case R.id.menu_delete_from_board:
+			mAdapter.removeItem(info.position);
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
 	}
 
 	@Override
@@ -83,9 +83,9 @@ public class Home extends Activity {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
 			isOldAPI = false;
 		}
-		
+
 		setContentView(R.layout.activity_home);
-		
+
 		Intent intent = getIntent();
 
 		if (intent.getExtras() != null) {
@@ -104,7 +104,7 @@ public class Home extends Activity {
 
 		initViews();
 	}
-	
+
 	private void updatePerfDependentValues() {
 		mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 		linksClickable = mPreferences.getBoolean(Settings.KEY_PREF_MAKE_LINKS_CLICKABLE, false);
@@ -118,13 +118,13 @@ public class Home extends Activity {
 			setTheme(R.style.LightTheme);
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_home, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -136,7 +136,7 @@ public class Home extends Activity {
 			return false;
 		}
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -169,5 +169,5 @@ public class Home extends Activity {
 			Toast.makeText(this,"Text: " + lastClip, Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 }
