@@ -75,7 +75,7 @@ public final class R {
         public static final int ic_launcher=0x7f020004;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f0a0001;
+        public static final int clip_container=0x7f0a0001;
         public static final int clip_list_text=0x7f0a0002;
         public static final int home_clip_list=0x7f0a0000;
         public static final int menu_add_to_board=0x7f0a0004;
@@ -92,20 +92,19 @@ public final class R {
         public static final int cliplist_context_menu=0x7f090001;
     }
     public static final class string {
-        public static final int app_label=0x7f070006;
-        public static final int app_name=0x7f070005;
-        public static final int hello_world=0x7f070007;
-        public static final int menu_add_to_board=0x7f070009;
-        public static final int menu_delete_from_board=0x7f07000a;
-        public static final int menu_settings=0x7f070008;
+        public static final int app_label=0x7f070004;
+        public static final int app_name=0x7f070003;
+        public static final int hello_world=0x7f070005;
+        public static final int menu_add_to_board=0x7f070007;
+        public static final int menu_delete_from_board=0x7f070008;
+        public static final int menu_settings=0x7f070006;
         public static final int pref_summary_current_theme=0x7f070002;
-        public static final int pref_summary_make_links_clickable=0x7f070004;
         public static final int pref_title_current_theme=0x7f070001;
         /**  General settings 
          */
         public static final int pref_title_general=0x7f070000;
-        public static final int pref_title_make_links_clickable=0x7f070003;
-        public static final int title_activity_settings=0x7f07000b;
+        public static final int title_activity_settings=0x7f070009;
+        public static final int title_span_selector=0x7f07000a;
     }
     public static final class style {
         public static final int ActionButtons=0x7f080003;

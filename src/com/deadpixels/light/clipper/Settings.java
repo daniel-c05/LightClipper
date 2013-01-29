@@ -30,7 +30,6 @@ import android.util.Log;
 public class Settings extends PreferenceActivity {
 	
 	public static final String KEY_PREF_CUR_THEME = "pref_key_current_theme";
-	public static final String KEY_PREF_MAKE_LINKS_CLICKABLE = "pref_key_make_links_clickable";
 
 		@SuppressWarnings("deprecation")
 		@Override
@@ -39,8 +38,7 @@ public class Settings extends PreferenceActivity {
 		        
 		        addPreferencesFromResource(R.xml.preferences);   
 		        
-		        findPreference(KEY_PREF_CUR_THEME).setOnPreferenceChangeListener(prefChangeListener);
-		        findPreference(KEY_PREF_MAKE_LINKS_CLICKABLE).setOnPreferenceChangeListener(prefChangeListener);		       		        
+		        findPreference(KEY_PREF_CUR_THEME).setOnPreferenceChangeListener(prefChangeListener);		       		        
 		    }
 		
 		private static Preference.OnPreferenceChangeListener prefChangeListener = new Preference.OnPreferenceChangeListener() {

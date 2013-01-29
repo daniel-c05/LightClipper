@@ -18,26 +18,21 @@ package com.deadpixels.light.clipper.adapters;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 
-import com.deadpixels.light.clipper.Home;
 import com.deadpixels.light.clipper.R;
+import com.deadpixels.light.clipper.ui.ClipListItem;
 
 public class ClipsAdapter extends BaseAdapter {
-	
+
 	private LayoutInflater mInflater;
 	private ArrayList<String> mClips;	
-	private boolean areLinksClickable;
-	
-	public ClipsAdapter (Context context, ArrayList<String> clips, boolean clickable) {
+
+	public ClipsAdapter (Context context, ArrayList<String> clips) {
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		areLinksClickable = clickable;
-		Log.v(Home.TAG, "Links are clickable? : " + areLinksClickable);
 		if (clips != null) {
 			mClips = clips;
 		}
@@ -58,7 +53,7 @@ public class ClipsAdapter extends BaseAdapter {
 	public String getItem(int pos) {	
 		return mClips.get(pos);
 	}
-	
+
 	public void removeItem (int pos) {
 		if (mClips == null) {
 			return;
@@ -66,12 +61,12 @@ public class ClipsAdapter extends BaseAdapter {
 		mClips.remove(pos);
 		notifyDataSetChanged();
 	}
-	
+
 	public void addItem (String item) {
 		if (!mClips.contains(item)) {
 			mClips.add(item);
 			notifyDataSetChanged();
-			}
+		}
 	}
 
 	@Override
@@ -81,30 +76,13 @@ public class ClipsAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View root = convertView;
-		ViewHolder mHolder;
-		
-		if (root == null) {
-			root = mInflater.inflate(R.layout.clip_list_item, null);
-			mHolder = new ViewHolder();
-			mHolder.content = (TextView) root.findViewById(R.id.clip_list_text);
-			mHolder.content.setLinksClickable(areLinksClickable);
-			root.setTag(mHolder);
+		View view = convertView;
+		if (view == null) {
+			view = mInflater.inflate(R.layout.clip_list_item, null);
 		}
-		
-		else {
-			mHolder = (ViewHolder) root.getTag();
-		}
-		
-		mHolder.content.setText(mClips.get(position));
-		
-		return root;
+		ClipListItem item = (ClipListItem) view;
+		item.bind(mClips.get(position), position);
+		return item;
 	}	
-	
-	private class ViewHolder {
-		TextView content;
-	}
-	
-	
-	
+
 }

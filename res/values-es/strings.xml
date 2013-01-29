@@ -21,5 +21,7 @@
     <string name="menu_settings">Configuracion</string>
     <string name="menu_add_to_board">Copiar</string>
     <string name="menu_delete_from_board">Borrar</string>
+    <string name="title_activity_settings">Configuracion</string>
+    <string name="title_span_selector">Escoje un Link</string>
 
 </resources>

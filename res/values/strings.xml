@@ -23,5 +23,6 @@
     <string name="menu_add_to_board">Copy</string>
     <string name="menu_delete_from_board">Delete</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_span_selector">Chose Link</string>
 
 </resources>

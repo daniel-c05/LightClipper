@@ -14,20 +14,21 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+<com.deadpixels.light.clipper.ui.ClipListItem xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clip_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"    
+    android:layout_height="wrap_content"
+    android:clickable="false"    
+    android:longClickable="false"
     android:orientation="horizontal" >
 
     <TextView
         android:id="@+id/clip_list_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"        
+        android:layout_height="wrap_content"     
         android:padding="8dp"
         android:autoLink="web"
+        android:linksClickable="false"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</RelativeLayout>
+</com.deadpixels.light.clipper.ui.ClipListItem>

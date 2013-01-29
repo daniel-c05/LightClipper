@@ -30,14 +30,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.deadpixels.light.clipper.adapters.ClipsAdapter;
+import com.deadpixels.light.clipper.ui.ClipListItem;
 import com.deadpixels.light.clipper.utils.ClipHelper;
 
-public class Home extends Activity {
+/**
+ * @author Daniel Alvarado
+ *
+ */
+public class Home extends Activity implements OnItemClickListener {
 
 	public static final String TAG = "Light Clipper";
 
@@ -46,8 +53,7 @@ public class Home extends Activity {
 	private ArrayList<String> recentClips;
 	private boolean isOldAPI = true;
 	private SharedPreferences mPreferences;
-	private boolean linksClickable; 
-	public static boolean darkThemeEnabled;
+	private boolean darkThemeEnabled;
 
 
 	@Override
@@ -84,8 +90,6 @@ public class Home extends Activity {
 			isOldAPI = false;
 		}
 
-		setContentView(R.layout.activity_home);
-
 		Intent intent = getIntent();
 
 		if (intent.getExtras() != null) {
@@ -100,14 +104,14 @@ public class Home extends Activity {
 		}
 
 		recentClips = new ArrayList<String>();		
-		recentClips = ClipHelper.getSavedClips(this);		
-
+		recentClips = ClipHelper.getSavedClips(this);
+		
+		setContentView(R.layout.activity_home);
 		initViews();
 	}
 
 	private void updatePerfDependentValues() {
 		mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		linksClickable = mPreferences.getBoolean(Settings.KEY_PREF_MAKE_LINKS_CLICKABLE, false);
 		darkThemeEnabled = mPreferences.getBoolean(Settings.KEY_PREF_CUR_THEME, false);
 
 		if (darkThemeEnabled) {
@@ -152,8 +156,9 @@ public class Home extends Activity {
 
 	private void initViews () {
 		clipList = (ListView) findViewById(R.id.home_clip_list); 
-		registerForContextMenu(clipList);		
-		mAdapter = new ClipsAdapter(this, recentClips, linksClickable);				
+		registerForContextMenu(clipList);
+		clipList.setOnItemClickListener(this);
+		mAdapter = new ClipsAdapter(this, recentClips);				
 		clipList.setAdapter(mAdapter);		
 	}
 
@@ -168,6 +173,14 @@ public class Home extends Activity {
 		if (toast) {
 			Toast.makeText(this,"Text: " + lastClip, Toast.LENGTH_LONG).show();
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
+		if (view != null) {
+			Log.v(TAG, "Attempting to call clip list method");
+            ((ClipListItem) view).onClipItemClick();
+        }
 	}
 
 }
