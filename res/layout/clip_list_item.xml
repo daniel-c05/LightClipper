@@ -20,6 +20,8 @@
     android:layout_height="wrap_content"
     android:clickable="false"    
     android:longClickable="false"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
     android:orientation="horizontal" >
 
     <TextView

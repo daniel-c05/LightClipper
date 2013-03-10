@@ -82,6 +82,7 @@ public class ClipsAdapter extends BaseAdapter {
 		}
 		ClipListItem item = (ClipListItem) view;
 		item.bind(mClips.get(position), position);
+		
 		return item;
 	}	
 

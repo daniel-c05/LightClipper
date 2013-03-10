@@ -17,6 +17,7 @@ package com.deadpixels.light.clipper.utils;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -37,10 +38,30 @@ import com.deadpixels.light.clipper.Home;
  *
  */
 public class ClipHelper {
-	
+
 	public static final String FILE_CLIPS = "clips.txt";
 	public static final String EMPTY_STRING = "";
-	
+
+	/**
+	 * Delete the file named clips.txt and also clear current clipboard
+	 * @param context
+	 */
+	public static void deleteClips(final Context context) {
+		Log.v(Home.TAG, "Deleting clips"); 
+		try {
+			String path = context.getFilesDir() + "/" + FILE_CLIPS;
+			File file = new File(path);
+			boolean deleted = file.delete();
+			clearClipboard(context);
+			if (deleted) {
+				Log.v(Home.TAG, "Deleted succesfully : " + deleted + " files");
+			}
+
+		} catch (Exception e) {
+			Log.v(Home.TAG, e.toString());
+		}
+	}
+
 	/**
 	 * 
 	 * @param context The context, required to call {@code openFileOutput}
@@ -48,11 +69,16 @@ public class ClipHelper {
 	 */
 	public static void saveClips(final Context context, final ArrayList<String> recentClips) {
 		
+		if (recentClips.size() == 0) {
+			return;
+		}
+
 		try {
 			FileOutputStream out = context.openFileOutput(FILE_CLIPS, Context.MODE_PRIVATE);
 			DataOutputStream dos = new DataOutputStream(out);
 			dos.writeInt(recentClips.size());
 			for (String clip: recentClips) {
+				Log.v(Home.TAG, clip);
 				dos.writeUTF(clip);
 			}
 			dos.flush();
@@ -61,23 +87,24 @@ public class ClipHelper {
 			Log.v(Home.TAG, e.toString());
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param context The context, required to call {@code openFileInput}
 	 * @return A list of the clips that were saved via {@link #saveClips(Context, ArrayList)}
 	 */
 	public static ArrayList<String> getSavedClips(final Context context) {
-		
+
 		ArrayList<String> recentClips = new ArrayList<String>();
-		
+
 		try {
 			FileInputStream in = context.openFileInput(FILE_CLIPS);
 			DataInputStream dis = new DataInputStream(in);
 			int size = dis.readInt();
 			for (int i = 0; i < size; i++) {
 				String line = dis.readUTF();
-				recentClips.add(line);
+				if (!line.isEmpty()) 
+					recentClips.add(line);				
 			}
 			dis.close();
 		} catch (Exception e) {
@@ -85,9 +112,8 @@ public class ClipHelper {
 		}
 		
 		return recentClips;
-		
 	}
-	
+
 	/**
 	 * 
 	 * @param context The context
@@ -103,7 +129,7 @@ public class ClipHelper {
 			addItemToClipboard(context, label, value);
 		}
 	}
-	
+
 	/**
 	 * This is only called when oldAPi is passed as false on {@link #addItemToClipboard(Context, String, String, boolean)}
 	 * @param context The context, required to get the Cliboard System Service. 
@@ -118,7 +144,7 @@ public class ClipHelper {
 		ClipData data = new ClipData(description, item);
 		manager.setPrimaryClip(data);				
 	}
-	
+
 	/**
 	 * This is only called when oldAPi is passed as true on {@link #addItemToClipboard(Context, String, String, boolean)}
 	 * @param context The context, required to get the Cliboard System Service. 
@@ -129,7 +155,7 @@ public class ClipHelper {
 		android.text.ClipboardManager manager = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		manager.setText(value);			
 	}
-	
+
 	/**
 	 * This is only called when we are on API level > Honeycomb
 	 * @param context The context, required to get the Cliboard System Service. 
@@ -139,26 +165,26 @@ public class ClipHelper {
 	public static String getItemFromCliboard (final Context context) {
 		ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		final ClipData data = manager.getPrimaryClip();
-		
+
 		if (data == null) {	//If no data on clipboard, let's call it a day. 
 			return EMPTY_STRING;
 		}		
-		
+
 		final String clipItem;
-		
+
 		if (data.getDescription().hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
 			ClipData.Item item = data.getItemAt(0);
 			clipItem = item.getText().toString();
 		}
-		
+
 		else {
 			clipItem = EMPTY_STRING;
 		}
-		
+
 		return clipItem;
-		
+
 	}
-	
+
 	/**
 	 * This is only called when we are on API level < Honeycomb
 	 * @param context The context, required to get the Cliboard System Service.  
@@ -168,12 +194,11 @@ public class ClipHelper {
 	private static String getTextFromClipboard(final Context context) {
 		android.text.ClipboardManager manager = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		String text = (String) manager.getText();	//Yep, that much simpler. 
-		if (text == null) {
+		if (text == null) 
 			text = EMPTY_STRING;
-		}
 		return text;
 	}
-	
+
 	/**
 	 * 
 	 * @param context The context, required to get the Cliboard System Service.
@@ -181,18 +206,24 @@ public class ClipHelper {
 	 * @return The last text copied to the clipboard by the user. 
 	 */
 	public static String getLastClip (final Context context, boolean oldAPI) {		
-		
+
 		final String clip;
-		
+
 		if (oldAPI) {
 			clip = getTextFromClipboard(context);
 		}
 		else {
 			clip = getItemFromCliboard(context);
 		}		
-		
+
 		return clip;
-		
+
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void clearClipboard(Context context) {
+		android.text.ClipboardManager manager = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+		manager.setText(EMPTY_STRING);
 	}	
 
 }

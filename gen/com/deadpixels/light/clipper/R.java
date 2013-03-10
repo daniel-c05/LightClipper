@@ -43,25 +43,26 @@ public final class R {
         public static final int white=0x7f05000e;
     }
     public static final class dimen {
-        public static final int button_action_large=0x7f060006;
+        public static final int about_text_size=0x7f060002;
+        public static final int button_action_large=0x7f060007;
         /**  Button Sizes 
          */
-        public static final int button_action_normal=0x7f060005;
-        public static final int margin_extra_large=0x7f06000c;
-        public static final int margin_large=0x7f06000b;
-        public static final int margin_normal=0x7f06000a;
+        public static final int button_action_normal=0x7f060006;
+        public static final int margin_extra_large=0x7f06000d;
+        public static final int margin_large=0x7f06000c;
+        public static final int margin_normal=0x7f06000b;
         /**  Margin Dimens 
          */
-        public static final int margin_small=0x7f060009;
-        public static final int padding_normal=0x7f060008;
+        public static final int margin_small=0x7f06000a;
+        public static final int padding_normal=0x7f060009;
         /**  Padding Dimens 
          */
-        public static final int padding_small=0x7f060007;
-        public static final int shadow_width=0x7f06000e;
-        public static final int slidingmenu_offset=0x7f06000d;
-        public static final int text_size_extra_large=0x7f060004;
-        public static final int text_size_large=0x7f060003;
-        public static final int text_size_medium=0x7f060002;
+        public static final int padding_small=0x7f060008;
+        public static final int shadow_width=0x7f06000f;
+        public static final int slidingmenu_offset=0x7f06000e;
+        public static final int text_size_extra_large=0x7f060005;
+        public static final int text_size_large=0x7f060004;
+        public static final int text_size_medium=0x7f060003;
         /**  Text Sizes 
          */
         public static final int text_size_micro=0x7f060000;
@@ -75,12 +76,13 @@ public final class R {
         public static final int ic_launcher=0x7f020004;
     }
     public static final class id {
-        public static final int clip_container=0x7f0a0001;
-        public static final int clip_list_text=0x7f0a0002;
+        public static final int clip_container=0x7f0a0002;
+        public static final int clip_list_text=0x7f0a0003;
+        public static final int empty=0x7f0a0001;
         public static final int home_clip_list=0x7f0a0000;
-        public static final int menu_add_to_board=0x7f0a0004;
-        public static final int menu_delete_from_board=0x7f0a0005;
-        public static final int menu_settings=0x7f0a0003;
+        public static final int menu_add_to_board=0x7f0a0005;
+        public static final int menu_delete_from_board=0x7f0a0006;
+        public static final int menu_settings=0x7f0a0004;
     }
     public static final class layout {
         public static final int activity_home=0x7f030000;
@@ -92,20 +94,31 @@ public final class R {
         public static final int cliplist_context_menu=0x7f090001;
     }
     public static final class string {
-        public static final int app_label=0x7f070004;
-        public static final int app_name=0x7f070003;
-        public static final int hello_world=0x7f070005;
-        public static final int menu_add_to_board=0x7f070007;
-        public static final int menu_delete_from_board=0x7f070008;
-        public static final int menu_settings=0x7f070006;
+        public static final int about_author=0x7f070005;
+        public static final int about_source=0x7f070008;
+        public static final int about_source_summary=0x7f070009;
+        public static final int about_version=0x7f070006;
+        public static final int about_version_summary=0x7f070007;
+        public static final int app_label=0x7f07000d;
+        public static final int app_name=0x7f07000c;
+        public static final int button_close=0x7f070014;
+        public static final int empty=0x7f070015;
+        public static final int hello_world=0x7f07000e;
+        public static final int menu_add_to_board=0x7f070010;
+        public static final int menu_delete_from_board=0x7f070011;
+        public static final int menu_settings=0x7f07000f;
+        public static final int pref_header_about=0x7f070004;
         public static final int pref_summary_current_theme=0x7f070002;
+        public static final int pref_title_about=0x7f070003;
+        public static final int pref_title_clear_clips=0x7f07000a;
         public static final int pref_title_current_theme=0x7f070001;
         /**  General settings 
  General settings 
          */
         public static final int pref_title_general=0x7f070000;
-        public static final int title_activity_settings=0x7f070009;
-        public static final int title_span_selector=0x7f07000a;
+        public static final int pref_warning_clear_clips=0x7f07000b;
+        public static final int title_activity_settings=0x7f070012;
+        public static final int title_span_selector=0x7f070013;
     }
     public static final class style {
         public static final int ActionButtons=0x7f080003;

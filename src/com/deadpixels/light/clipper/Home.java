@@ -74,6 +74,21 @@ public class Home extends Activity implements OnItemClickListener {
 			Toast.makeText(Home.this, "Text copied to clipboard", Toast.LENGTH_SHORT).show();
 			return true;
 		case R.id.menu_delete_from_board:
+			if (mAdapter.getCount() == 1) {
+				//If adapter only has one item. 
+				//Check for this first
+				Log.v(TAG, "Deleting only item on adapter, clearing clipboard");
+				ClipHelper.clearClipboard(Home.this);
+				ClipHelper.deleteClips(Home.this);
+				mAdapter.removeItem(info.position);
+				return true;
+			}
+			
+			if (info.position == mAdapter.getCount() - 1) {
+				Log.v(TAG, "Deleting last item on adapter, clearing clipboard");
+				ClipHelper.clearClipboard(Home.this);
+			}
+			
 			mAdapter.removeItem(info.position);
 			return true;
 		default:
@@ -89,6 +104,9 @@ public class Home extends Activity implements OnItemClickListener {
 		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
 			isOldAPI = false;
 		}
+		
+		recentClips = new ArrayList<String>();		
+		recentClips = ClipHelper.getSavedClips(this);
 
 		Intent intent = getIntent();
 
@@ -97,16 +115,15 @@ public class Home extends Activity implements OnItemClickListener {
 			String data = "";
 			if (intent.hasExtra(Intent.EXTRA_TEXT)) {
 				data = getIntent().getCharSequenceExtra(Intent.EXTRA_TEXT).toString();
+				if (data != "" && !recentClips.contains(data)) {
+					recentClips.add(data);
+				}
 				ClipHelper.addItemToClipboard(this, action, data, isOldAPI);
+				ClipHelper.saveClips(this, recentClips);
 				Toast.makeText(this, "Data copied to clipboard", Toast.LENGTH_SHORT).show();
 				this.finish();
 			}
 		}
-
-		recentClips = new ArrayList<String>();		
-		recentClips = ClipHelper.getSavedClips(this);
-		
-		setContentView(R.layout.activity_home);
 		initViews();
 	}
 
@@ -115,7 +132,6 @@ public class Home extends Activity implements OnItemClickListener {
 		darkThemeEnabled = mPreferences.getBoolean(Settings.KEY_PREF_CUR_THEME, false);
 
 		if (darkThemeEnabled) {
-			Log.v(TAG, "Attempting to set dark theme");
 			setTheme(R.style.DarkTheme);
 		}
 		else if (!darkThemeEnabled) {
@@ -149,22 +165,23 @@ public class Home extends Activity implements OnItemClickListener {
 
 	@Override
 	protected void onStop() {
-		Log.v(TAG, "Stopping");
 		ClipHelper.saveClips(this, recentClips);		
 		super.onStop();
 	}
 
 	private void initViews () {
+		setContentView(R.layout.activity_home);
 		clipList = (ListView) findViewById(R.id.home_clip_list); 
 		registerForContextMenu(clipList);
 		clipList.setOnItemClickListener(this);
 		mAdapter = new ClipsAdapter(this, recentClips);				
-		clipList.setAdapter(mAdapter);		
+		clipList.setAdapter(mAdapter);	
+		clipList.setEmptyView(findViewById(R.id.empty));
 	}
 
 	public void getLastItemFromClipboard (boolean oldAPI, boolean toast) {
 		String lastClip = ClipHelper.getLastClip(this, oldAPI);
-		if (lastClip != "" && !recentClips.contains(lastClip)) {
+		if (lastClip.length() > 0 && !recentClips.contains(lastClip)) {
 			recentClips.add(lastClip);
 			mAdapter.addItem(lastClip);
 			mAdapter.notifyDataSetChanged();
@@ -178,7 +195,6 @@ public class Home extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View view, int arg2, long arg3) {
 		if (view != null) {
-			Log.v(TAG, "Attempting to call clip list method");
             ((ClipListItem) view).onClipItemClick();
         }
 	}

@@ -17,11 +17,14 @@
 <resources>
 
     <string name="app_name">Light Clipper</string>
+    <string name="app_label">Clips Recientes</string>
     <string name="hello_world">Hola Mundo</string>
     <string name="menu_settings">Configuracion</string>
     <string name="menu_add_to_board">Copiar</string>
     <string name="menu_delete_from_board">Borrar</string>
     <string name="title_activity_settings">Configuracion</string>
     <string name="title_span_selector">Escoje un Link</string>
-
+	<string name="button_close">Cerrar</string>
+    <string name="empty">No hay items para mostrar</string>
+    
 </resources>

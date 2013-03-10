@@ -22,5 +22,16 @@
     <string name="pref_title_general">General</string>
     <string name="pref_title_current_theme">Activar Tema Oscuro</string>
     <string name="pref_summary_current_theme">Cambios al tema no tomaran efecto hasta que la aplicacion sea reiniciada</string>
+
+    <string name="pref_title_about">Acerca de</string>
+    <string name="pref_header_about">Acerca de Light Clipper</string>
+    <string name="about_author">Creado por Daniel Alvarado</string>
+    <string name="about_version">Versión Actual</string>
+    <string name="about_version_summary"></string>
+    <string name="about_source">Revisa el código</string>
+    <string name="about_source_summary">Disponible en: https://github.com/daniel-c05/LightClipper</string>
+        
+    <string name="pref_title_clear_clips">Borrar historia de clips</string>
+    <string name="pref_warning_clear_clips">Esto borrará todo tu historial de búsquedas!</string>
         
 </resources>

@@ -26,5 +26,16 @@
         android:layout_alignParentLeft="true"
         android:listSelector="@drawable/holo_selector" >
     </ListView>
+    
+    <TextView
+        android:id="@+id/empty"
+        android:text="@string/empty"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_large"        
+        android:layout_width="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_centerVertical="true" 
+        />
 
 </RelativeLayout>
