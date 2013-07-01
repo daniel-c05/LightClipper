@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LightClipper/LightClipper.iml" filepath="$PROJECT_DIR$/LightClipper/LightClipper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LightClipperProject.iml" filepath="$PROJECT_DIR$/LightClipperProject.iml" />
+    </modules>
+  </component>
+</project>
+
